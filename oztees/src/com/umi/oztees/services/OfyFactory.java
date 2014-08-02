@@ -1,7 +1,7 @@
 package com.umi.oztees.services;
 
 import javax.inject.Singleton;
-import com.umi.oztees.models.*;
+import com.umi.oztees.models.Product;
 import com.googlecode.objectify.ObjectifyFactory;
 
 @Singleton

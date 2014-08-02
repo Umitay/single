@@ -13,7 +13,7 @@ import au.com.bytecode.opencsv.CSVReader;
 public class Csv {
 	List <String[]>  content =  new ArrayList<String[]>();
 	URL url = null;
-	public static final String CLOUD_DATA_STORAGE="http://storage.googleapis.com/storage.dev.installmac.com/";
+	public static final String CLOUD_DATA_STORAGE="http://storage.googleapis.com/oztees-au.appspot.com/";
 	
 	public Csv(URL url) {
 		super();

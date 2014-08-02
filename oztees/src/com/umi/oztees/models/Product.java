@@ -14,32 +14,32 @@ import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 
 @Cache
-@Entity(name = "Products")
+@Entity(name = "Product")
 public class Product {
 	
 	private static final Logger log = Logger.getLogger(Product.class.getName());
 	@Id
 	private Long CID;
+	public String brand = null;
+	public String name = null;
 	
 	@Index
-	protected String name = null;
+	public String main_category = null;
 	@Index
-	protected String category = null;
+	public String category = null;
 	@Index
-	protected String page = null;
-	@Index
-	protected String code = null;
-	@Ignore
-	protected String description = null;
-	protected Float supplier_price = null;
-	protected Float multiple_price = null;
-	protected Float approved_price = null;
-	protected String colour = null;
-	protected String size  = null;
-	protected String gender = null;
-	protected URL link = null;
-	protected String picture = null;
+	public String code = null;
 	
+	public String supplier_price = null;
+	public String multiple_price = null;
+	public String approved_price = null;
+	public String colour = null;
+	public String size  = null;
+	public String gender = null;
+	public String link = null;
+	public String picture = null;
+	public String description = null;
+	public String more_text = null;
 	public Long getCID() {
 		return CID;
 	}
@@ -47,11 +47,23 @@ public class Product {
 		CID = cID;
 	}
 
+	public String getBrand() {
+		return brand;
+	}
+	public void setBrand(String brand) {
+		this.brand = brand;
+	}
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	public String getMain_category() {
+		return main_category;
+	}
+	public void setMain_category(String main_category) {
+		this.main_category = main_category;
 	}
 	public String getCategory() {
 		return category;
@@ -59,12 +71,7 @@ public class Product {
 	public void setCategory(String category) {
 		this.category = category;
 	}
-	public String getPage() {
-		return page;
-	}
-	public void setPage(String page) {
-		this.page = page;
-	}
+	
 	public String getPicture() {
 		return picture;
 	}
@@ -77,28 +84,34 @@ public class Product {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	public String getMore_text() {
+		return more_text;
+	}
+	public void setMore_text(String more_text) {
+		this.more_text = more_text;
+	}
 	public String getCode() {
 		return code;
 	}
 	public void setCode(String code) {
 		this.code = code;
 	}
-	public Float getSupplier_price() {
+	public String getSupplier_price() {
 		return supplier_price;
 	}
-	public void setSupplier_price(Float supplier_price) {
-		this.supplier_price = supplier_price;
+	public void setSupplier_price(String line) {
+		this.supplier_price = line;
 	}
-	public Float getMultiple_price() {
+	public String getMultiple_price() {
 		return multiple_price;
 	}
-	public void setMultiple_price(Float multiple_price) {
-		this.multiple_price = multiple_price;
+	public void setMultiple_price(String line) {
+		this.multiple_price = line;
 	}
-	public Float getApproved_price() {
+	public String getApproved_price() {
 		return approved_price;
 	}
-	public void setApproved_price(Float approved_price) {
+	public void setApproved_price(String approved_price) {
 		this.approved_price = approved_price;
 	}
 	public String getColour() {
@@ -119,11 +132,11 @@ public class Product {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-	public URL getLink() {
+	public String getLink() {
 		return link;
 	}
-	public void setLink(URL link) {
-		this.link = link;
+	public void setLink(String line) {
+		this.link = line;
 	}
 	
 	
