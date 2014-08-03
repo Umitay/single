@@ -40,7 +40,10 @@
     transition-duration: 0.2s;
     transition-property: all;
     transition-timing-function: ease-in-out;
-}
+	}
+	#modal-area{
+	display:none;
+	}
     </style>
     
      <body>
@@ -63,7 +66,7 @@
 		 <!-- Thumbnail contents -->
 		  <div class="col-sm-2">
 			<div class="thumbnail">
-			  <img data-src="holder.js/300x300" alt="${product.name} picture" 
+			  <img data-src="holder.js/300x300" alt="${product.name} picture" onclick= "more_info('${product.link}')"
 			  src="http://storage.googleapis.com/oztees-au.appspot.com/${product.picture}">
 			</div>
 			<p><b>Code:</b> ${product.code}</p>
@@ -72,7 +75,7 @@
 			<!-- Price contents -->
 		  <div class="col-sm-2">
 			 <p><b>Price:</b><br> ${product.approved_price}</p>
-			 <p><a style="font-weight: bold;font-size:14px;" href="javascript:void();" onclick="open_win('http://shopping.netsuite.com/s.nl/c.689393/n.2/it.A/id.20/.f?sc=63&amp;category=72017')">More Info/Photo</a></p>
+			 <p><a style="font-weight: bold;font-size:14px;" href="javascript:void();" onclick="more_info('${product.link}')">More Info/Photo</a></p>
 		  <p><span class="btn btn-danger" style="cursor: pointer; color: #FFFFFF; font-weight: bold;" onclick="open_form('Cap CH01 heavy brushed cotton traditional Baseball cap','ch01')">Order</span>
 				  </p>
 		  </div>
@@ -101,10 +104,42 @@
 			 <p class="alert alert-warning"><b >Price / Quantity:</b><br>${product.more_text}</p>
 		  </div>
 		   <!-- /Gender contents -->
-			</div> <!-- /row -->
-			</div><!-- /item-border -->
+			</div> <!-- /.row -->
+			</div><!-- /.item-border -->
 			</c:forEach>
 		</div>
         </div>
+        
+       <!-- Modal -->
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+		        <h4 class="modal-title"></h4>
+		      </div>
+		      <div class="modal-body">
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		      </div>
+		    </div><!-- /.modal-content -->
+		  </div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
+      
+        <script type="text/javascript">
+          function more_info( link ){
+        	  /* if (event.preventDefault) { 
+					event.preventDefault();
+		        } else {
+		            event.returnValue = false;
+		        }  */
+        	 var options = {};
+        	  var helperFrame = $('<iframe />').attr('name','helperFrame').attr('id','helperFrame').attr('src', link);
+        	  $(".modal-body").html(helperFrame);
+        	 // $('<iframe />').css({position : 'absolute', left : '-1000px', top : '-1000px', width : '1px', height : '1px'});
+        	  $('#myModal').modal(options);
+          }
+        </script>
         </body>
         </html>
