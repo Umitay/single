@@ -7,8 +7,6 @@
     	<meta name="viewport" content="width=device-width, initial-scale=1">
         
         <script	src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-        <script	src="http://underscorejs.org/underscore-min.js"></script>
-        <script	src="http://backbonejs.org/backbone-min.js"></script>
         	<!-- Latest compiled and minified CSS -->
 		<link rel="stylesheet"	href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 		<!-- Latest compiled and minified JavaScript -->
@@ -41,9 +39,9 @@
     transition-property: all;
     transition-timing-function: ease-in-out;
 	}
-	#modal-area{
-	display:none;
-	}
+	.error{
+    color:red;
+}
     </style>
     
      <body>
@@ -66,8 +64,10 @@
 		 <!-- Thumbnail contents -->
 		  <div class="col-sm-2">
 			<div class="thumbnail">
-			  <img data-src="holder.js/300x300" alt="${product.name} picture" onclick= "more_info('${product.link}')"
+			<a class="more_info" href="${product.link}"  target="_blank">
+			  <img data-src="holder.js/300x300" alt="${product.name} picture"
 			  src="http://storage.googleapis.com/oztees-au.appspot.com/${product.picture}">
+			  </a>
 			</div>
 			<p><b>Code:</b> ${product.code}</p>
 		  </div>
@@ -75,8 +75,8 @@
 			<!-- Price contents -->
 		  <div class="col-sm-2">
 			 <p><b>Price:</b><br> ${product.approved_price}</p>
-			 <p><a style="font-weight: bold;font-size:14px;" href="javascript:void();" onclick="more_info('${product.link}')">More Info/Photo</a></p>
-		  <p><span class="btn btn-danger" style="cursor: pointer; color: #FFFFFF; font-weight: bold;" onclick="open_form('Cap CH01 heavy brushed cotton traditional Baseball cap','ch01')">Order</span>
+			 <p><a style="font-weight: bold;font-size:14px;" class="more_info" href="${product.link}"  target="_blank">More Info/Photo</a></p>
+		  <p><span class="btn btn-danger" style="cursor: pointer; color: #FFFFFF; font-weight: bold;" onclick="order('${product.name}','${product.code}')">Order</span>
 				  </p>
 		  </div>
 		   <!-- /Price contents -->
@@ -118,28 +118,88 @@
 		        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
 		        <h4 class="modal-title"></h4>
 		      </div>
+		      <div class="modal-body">fodsifuiodsf
+		      </div>
+		       <div class="modal-footer">
+		       <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		       <a class="btn btn-primary" href="" id="continue" target="_blank">Continue</a>
+		      </div>
+		    </div><!-- /.modal-content -->
+		  </div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
+       <!-- Modal -->
+		<div class="modal fade" id="orderModal" tabindex="-1" role="dialog" aria-labelledby="orderModalLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+		        <h4 class="modal-title">Order Form </h4>
+		        <div class="alert alert-info msg" role="alert"></div>
+		      </div>
 		      <div class="modal-body">
+		      <form role="form" id="orderForm">
+				  <div class="form-group">
+				    <label for="exampleInputEmail1">Email address <em style="color:red;">*</em></label>
+				    <input type="email" class="form-control" id="exampleInputEmail1" name="email" placeholder="Enter email" required>
+				  </div>
+				  <div class="form-group">
+				    <label for="exampleInputFile">Description<em style="color:red;">*</em></label>
+				    <textarea style="width: 560px; height: 172px;" name="description" id="description" required> </textarea>
+				    
+				  </div>
+			  </form>
 		      </div>
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		        <button type="button" class="btn btn-primary" id="send" data-loading-text="Sending...">Sending state</button>
 		      </div>
 		    </div><!-- /.modal-content -->
 		  </div><!-- /.modal-dialog -->
 		</div><!-- /.modal -->
       
         <script type="text/javascript">
-          function more_info( link ){
-        	  /* if (event.preventDefault) { 
-					event.preventDefault();
-		        } else {
-		            event.returnValue = false;
-		        }  */
-        	 var options = {};
-        	  var helperFrame = $('<iframe />').attr('name','helperFrame').attr('id','helperFrame').attr('src', link);
-        	  $(".modal-body").html(helperFrame);
-        	 // $('<iframe />').css({position : 'absolute', left : '-1000px', top : '-1000px', width : '1px', height : '1px'});
-        	  $('#myModal').modal(options);
-          }
+       
+        $(document).ready(function(event)
+        		{
+        	$(".alert").hide();
+        	 $("#orderForm").validate();
+	        	 $("body").on("click",".more_info", function(event) {
+	        		 if (event.preventDefault) { 
+	 					event.preventDefault();
+	 		        } else {
+	 		            event.returnValue = false;
+	 		        }  
+	        		 $('#continue').attr('href',$(this).attr('href'));
+	        		 $('#myModal').modal();
+	              });
+	        	 $("body").on("click","#send", function(event) {
+	        		 if(event.keyCode != 13)
+	        		   {
+	        		     
+			        		 var btn = $(this);
+			        		    btn.button('loading');
+			        		
+			        		 if($( "#orderForm" ).valid()){
+				        		 $.post( "/order", $( "#orderForm" ).serialize(), function( msg ) {
+				        			 $( ".msg" ).html( "Thank you for ordering, we will back to you in comming soon");
+				        			 $('.alert').show();
+				        		 }).fail(function() {
+				        			 $( ".msg" ).html( "Oh, Something went wrong, please try later again." );
+				        			 $(".alert").show();
+				        			 
+				        		 }).always(function () {
+				        		      btn.button('reset');
+				        		    });
+			        		 }
+	        		   }
+	              });
+        		});
+        function order(name,code){
+        	$('#description').html("item name: "+ name+" item code: "+code);
+        	 $('#orderModal').modal();
+        }
+       
         </script>
+        <script src="http://jqueryvalidation.org/files/dist/jquery.validate.min.js"></script>
         </body>
         </html>
