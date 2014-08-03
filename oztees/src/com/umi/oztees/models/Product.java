@@ -18,18 +18,18 @@ import com.googlecode.objectify.annotation.Id;
 public class Product {
 	
 	private static final Logger log = Logger.getLogger(Product.class.getName());
-	@Id
-	private Long CID;
-	public String brand = null;
-	public String name = null;
 	
+	@Id
+	public String code = null;
+	@Index
+	public String brand = null;
+	@Index
+	public String name = null;
 	@Index
 	public String main_category = null;
 	@Index
 	public String category = null;
-	@Index
-	public String code = null;
-	
+
 	public String supplier_price = null;
 	public String multiple_price = null;
 	public String approved_price = null;
@@ -40,12 +40,6 @@ public class Product {
 	public String picture = null;
 	public String description = null;
 	public String more_text = null;
-	public Long getCID() {
-		return CID;
-	}
-	public void setCID(Long cID) {
-		CID = cID;
-	}
 
 	public String getBrand() {
 		return brand;

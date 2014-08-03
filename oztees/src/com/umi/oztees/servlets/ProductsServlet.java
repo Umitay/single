@@ -30,7 +30,7 @@ public class ProductsServlet extends HttpServlet {
 			List<Product>  products = pm.datastore.find(Product.class, "main_category",main_category);
 			req.setAttribute("title", main_category);
 			req.setAttribute("products", products);
-			req.getRequestDispatcher("products.jsp").forward(req, resp);
+			req.getRequestDispatcher("/products/list.jsp").forward(req, resp);
 		}
 		
 		
