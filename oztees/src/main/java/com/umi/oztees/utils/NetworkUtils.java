@@ -1,10 +1,8 @@
 package com.umi.oztees.utils;
 
-import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -17,23 +15,12 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import com.umi.oztees.utils.EncodingUtil;
 import lombok.extern.java.Log;
 
-import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.IOUtils;
-import org.apache.http.Header;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-
-import com.google.appengine.api.files.FileServicePb.FileContentType.ContentType;
-import com.google.appengine.repackaged.org.apache.http.Consts;
 @Log
 public class NetworkUtils {
 	private static final Long HASH_EXPERATION_TIME = 60000L; // 1 minute

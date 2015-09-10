@@ -19,7 +19,7 @@
   
         <div class="container">
         <h1>CSV loader</h1>
-		<form role="form" method="post" action="/csv">
+		<form role="form" method="post" action="/csv/upload">
 		  <div class="form-group">
 		    <label for="filename">File Name</label>
 		    <input type="text" class="form-control" name="filename" id="filename" placeholder="Enter ile Name">

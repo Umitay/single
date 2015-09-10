@@ -21,7 +21,7 @@ public class ProductService extends DBService{
 	}
 
 	public List<Product> loadProductsByCategory(String main_category_slug) {
-		return load(Product.class,"main_category", main_category_slug);
+		return load(Product.class,"main_category_slug", main_category_slug);
 	}
 
 	public void loadToDatastroge(List<String[]> content, String filename) {
@@ -82,9 +82,8 @@ public class ProductService extends DBService{
 			
 			if(!product.getName().isEmpty()){
 				
-				product.setPicture(main_category_slug+"/"+product.getCode()+".jpg");
+				product.setPicture("https://storage.googleapis.com/oztees-au.appspot.com/"+main_category_name+"/"+product.getCode()+".jpg");
 				product.setMain_category_slug(main_category_slug);
-				
 				log.info("Product"+product.toString());
 				productList.add(product);
 			}

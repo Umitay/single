@@ -1,4 +1,5 @@
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <nav class="navbar navbar-default navbar-fixed-top">
   <div class="container-fluid">
@@ -20,71 +21,16 @@
       	<a class="capitalize" href="/"><b>Home</b></a>
 		</li>
       <li>
-      	<a class="capitalize" href="/page/printing-and-embroidery-price"><b>Printing &amp; Embroidery</b></a>
+      	<a class="capitalize" href="/page/v/printing-and-embroidery-price"><b>Printing &amp; Embroidery</b></a>
 		</li>
-         
-		    
+         <c:if test="${!empty categories}">
+		    <c:forEach items="${categories}" var="category">
 		       <li><a class="capitalize"  
-		       href="/products/T-shirts"><b>T-shirts</b></a>
+		       href="/category/v/${category.slug}"><b>${category.name}</b></a>
 		       </li>
-		    
-		       <li><a class="capitalize"  
-		       href="/products/Polo"><b>Polo</b></a>
-		       </li>
-		    
-		       <li><a class="capitalize"  
-		       href="/products/Singlets"><b>Singlets</b></a>
-		       </li>
-		    
-		       <li><a class="capitalize"  
-		       href="/products/Hoodies-SweatPants"><b>Hoodies-SweatPants</b></a>
-		       </li>
-		    
-		       <li><a class="capitalize"  
-		       href="/products/Headwear"><b>Headwear</b></a>
-		       </li>
-		    
-		       <li><a class="capitalize"  
-		       href="/products/Jackets-Polar-Vests"><b>Jackets-Polar-Vests</b></a>
-		       </li>
-		    
-		       <li><a class="capitalize"  
-		       href="/products/Shirt-Blouse"><b>Shirt-Blouse</b></a>
-		       </li>
-		    
-		       <li><a class="capitalize"  
-		       href="/products/Sports"><b>Sports</b></a>
-		       </li>
-		    
-		       <li><a class="capitalize"  
-		       href="/products/Corporate"><b>Corporate</b></a>
-		       </li>
-		    
-		       <li><a class="capitalize"  
-		       href="/products/HealthCare-Hospitality"><b>HealthCare-Hospitality</b></a>
-		       </li>
-		    
-		       <li><a class="capitalize"  
-		       href="/products/Work-Wear"><b>Work-Wear</b></a>
-		       </li>
-		    
-		       <li><a class="capitalize"  
-		       href="/products/Drinkware"><b>Drinkware</b></a>
-		       </li>
-		    
-		       <li><a class="capitalize"  
-		       href="/products/Coffee Mugs"><b>Coffee Mugs</b></a>
-		       </li>
-		    
-		       <li><a class="capitalize"  
-		       href="/products/Bags"><b>Bags</b></a>
-		       </li>
-		    
-		       <li><a class="capitalize"  
-		       href="/products/Test-tier"><b>Test-tier</b></a>
-		       </li>
-		    
-		 
+		    </c:forEach>
+		    </c:if>
+
       </ul>
      </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

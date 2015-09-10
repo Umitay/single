@@ -15,6 +15,7 @@ import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
@@ -38,8 +39,7 @@ public class PageServlet{
 	
 	@Path("/v/{slug}")
 	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	public Page view( @DefaultValue("") @QueryParam("slug") String slug ) {
+	public Page view( @DefaultValue("") @PathParam("slug") String slug ) {
 		Page page =  pageService.loadPage(slug);
 		return page;
 	}
@@ -55,15 +55,14 @@ public class PageServlet{
 	
 	@Path("/e/{slug}")
 	@GET
-	@Produces(MediaType.APPLICATION_JSON)
 	@RolesAllowed({"ADMIN", "API"})
-	public Page edit( @DefaultValue("") @QueryParam("slug") String slug ) {
+	public Page edit( @DefaultValue("") @PathParam("slug") String slug ) {
 		Page page =  pageService.loadPage(slug);
 		return page;
 	}
 	
 	@Path("/save")
-	@GET
+	@POST
 	@Consumes("application/x-www-form-urlencoded")
 	@Produces(MediaType.APPLICATION_JSON)
 	@RolesAllowed({"ADMIN", "API"})
