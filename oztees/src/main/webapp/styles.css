@@ -1,0 +1,116 @@
+body {
+	font-size: 13px;
+	padding-top: 12%;
+	padding-bottom: 9%;
+}
+
+.capitalize:first-letter {
+	text-transform: uppercase;
+}
+
+.navbar-nav>li>a {
+	
+	padding-bottom: 8px;
+	padding-top: 8px;
+}
+
+.navbar {
+ 	
+	margin-bottom: 20px;
+	min-height: 28px;
+}
+@media (min-width: 768px){
+.navbar>div{
+padding: 0 65px;
+}
+}
+@media (max-width: 700px){
+	body {
+	font-size: 12px;
+	padding-top: 25%;
+	padding-bottom: 25%;
+	}
+}
+@media (min-width: 1400px){
+body{
+font-size: 14px;
+padding-top: 5% !important;
+	padding-bottom: 4%;
+}
+}
+
+/* .navbar.first-navbar{
+background-color: #043a47;
+}
+.navbar.first-navbar a,.navbar.first-navbar .navbar-nav > li > a{
+color: #FFFFFF;
+}
+.navbar.first-navbar .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+    background-color: transparent;
+    color: #fff;
+}
+.navbar.first-navbar .navbar-nav > li > a.active, .navbar.first-navbar .navbar-nav > li > a:active, .navbar-default .navbar-nav > li > a:focus {
+ color:#e15d35;
+} */
+.navbar-brand{
+ line-height: 10px;
+ height: 70px;
+ 
+}
+.navbar.second-navbar.navbar-fixed-top {
+    height: 38px;
+    top: 70px;
+}
+.navbar.second-navbar .active {
+	color: #043a47 !important;
+}
+
+
+.nav>li>a {
+	position: relative;
+	display: block;
+	padding: 10px 10px;
+}
+
+.btn-danger {
+	background-color: #e15d35;
+	border-color: #e15d35;
+}
+
+h5 {
+	font-weight: bold;
+	color: #043A47;
+}
+
+.item-border .thumbnail {
+	margin-bottom: 0px;
+	padding-bottom: 0px;
+}
+
+.item-border {
+	-moz-border-bottom-colors: none;
+	-moz-border-left-colors: none;
+	-moz-border-right-colors: none;
+	-moz-border-top-colors: none;
+	background-color: #fff;
+	border: 1px solid #ddd;
+	border-top-left-radius: 4px;
+	border-top-right-radius: 4px;
+	border-bottom-left-radius: 4px;
+	border-bottom-right-radius: 4px;
+	display: block;
+	line-height: 1.42857;
+	margin-bottom: 20px;
+	padding-bottom: 4px;
+	padding-left: 40px;
+	padding-right: 4px;
+	padding-top: 4px;
+	transition-delay: 0s;
+	transition-duration: 0.2s;
+	transition-property: all;
+	transition-timing-function: ease-in-out;
+}
+
+.error {
+	color: red;
+}

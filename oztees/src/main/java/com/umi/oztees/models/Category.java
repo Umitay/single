@@ -20,10 +20,6 @@ import com.googlecode.objectify.annotation.Id;
 @Entity(name = "Category")
 public class Category {
 	
-	
-	
-	
-	
 	@Id
 	@Getter
 	@Setter
