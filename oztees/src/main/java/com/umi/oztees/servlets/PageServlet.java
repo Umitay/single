@@ -40,6 +40,7 @@ public class PageServlet{
 	@Path("/v/{slug}")
 	@GET
 	public Boolean view( @DefaultValue("") @PathParam("slug") String slug ) {
+
 		Page page =  pageService.loadPage(slug);
 		try {
 			request.setAttribute("page", page);
@@ -66,6 +67,7 @@ public class PageServlet{
 	@GET
 	@RolesAllowed({"ADMIN", "API"})
 	public Boolean  edit( @DefaultValue("") @PathParam("slug") String slug ) {
+
 		Page page =  pageService.loadPage(slug);
 		try {
 			request.setAttribute("page", page);

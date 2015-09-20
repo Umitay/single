@@ -11,6 +11,7 @@
 				<a href="/category/v/${product.slug}?order_by=brand">Brand</a>,
 				<a href="/category/v/${product.slug}?order_by=approved_price">Price</a>, 
 				<a href="/category/v/${product.slug}?order_by=gender">Gender</a>
+
 			</small></h1>
         <div class="items">
         <c:forEach items="${products}" var="product">

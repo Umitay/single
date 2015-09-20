@@ -86,7 +86,9 @@ public class CategoryServlet {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@RolesAllowed({"ADMIN", "API"})
+
 	public void edit( @DefaultValue("") @PathParam("slug") String slug ) {
+
 		Category category =  categoryService.loadCategory(slug); 
 		try {
 			request.setAttribute("category", category);

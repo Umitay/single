@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -15,8 +17,8 @@
         <title></title>    
 	
     </head>
-     <body>
-  <nav class="navbar navbar-default navbar-fixed-top">
+    <body>
+<nav class="navbar navbar-default navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
           <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
@@ -34,16 +36,35 @@
         </div><!--/.nav-collapse -->
       </div>
     </nav>
-        <div class="container">
-        <h1>CSV loader</h1>
-		<form role="form" method="post" action="/csv/upload">
-		  <div class="form-group">
-		    <label for="filename">File Name</label>
-		    <input type="text" class="form-control" name="filename" id="filename" placeholder="Enter ile Name">
-		  </div>
-		  <button type="submit" class="btn btn-default">Submit</button>
+	<div class="container">
+	<form action="/page/save" method="post">
+		<p></p>
+		<div class="form-group">
+		<label>Slug*</label>
+		<input type="text" value="${page.slug}" name="slug" class="form-control">
+		</div>
+		<div class="form-group">
+		<label>Name*</label>
+		<input type="text" value="${page.name}" name="name" class="form-control">
+		</div>
+		<div class="form-group">
+		<label>Description*</label>
+		<textarea name="description" class="form-control" type="text">${page.description}</textarea>
+		</div>
+		<div class="form-group">
+		<label>Add to top menu</label>
+		<select name="is_menu">
+			<option value="true" ${page.is_menu ? 'selected' : ''} >Yes</option>
+			<option value="false" ${!page.is_menu ? 'selected' : ''}>No</option>
+		</select>
+		</div>
+		<div class="form-group">
+		<label>Priority</label>
+		<input type="text" value="${page.priority}" name="priority" class="form-control">
+		</div>
+		<input type="submit" class="btn btn-primary"> 
 		</form>
-		
-        </div>
-        </body>
-        </html>
+	</div><!--/.container -->
+
+</body>
+</html>
