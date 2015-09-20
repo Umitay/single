@@ -14,8 +14,9 @@
 		<link rel="stylesheet"	href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 		<!-- Latest compiled and minified JavaScript -->
 		<script	src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-        <title></title>    
-	
+        <script src="//tinymce.cachefly.net/4.2/tinymce.min.js"></script>
+		<script>tinymce.init({selector:'textarea'});</script>
+
     </head>
 <body>
 <nav class="navbar navbar-default navbar-fixed-top">
