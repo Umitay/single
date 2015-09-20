@@ -39,7 +39,7 @@ public class PageServlet{
 	
 	@Path("/v/{slug}")
 	@GET
-	public Boolean view( @DefaultValue("") @PathParam("slug") String slug ) {
+	public void view( @DefaultValue("") @PathParam("slug") String slug ) {
 
 		Page page =  pageService.loadPage(slug);
 		try {
@@ -51,7 +51,6 @@ public class PageServlet{
 			throw new CustomException(Status.NOT_FOUND, "Something went wrong.");
 		}
 		
-		return true;
 	}
 	
 	@Path("/l/")
