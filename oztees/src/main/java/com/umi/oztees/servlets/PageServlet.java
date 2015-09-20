@@ -15,6 +15,7 @@ import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
@@ -38,10 +39,18 @@ public class PageServlet{
 	
 	@Path("/v/{slug}")
 	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	public Page view( @DefaultValue("") @QueryParam("slug") String slug ) {
+	public Boolean view( @DefaultValue("") @PathParam("slug") String slug ) {
 		Page page =  pageService.loadPage(slug);
-		return page;
+		try {
+			request.setAttribute("page", page);
+			request.getRequestDispatcher("/page.jsp").forward(request, response);
+			
+		} catch (ServletException | IOException e) {
+			log.severe(e.getMessage());
+			throw new CustomException(Status.NOT_FOUND, "Something went wrong.");
+		}
+		
+		return true;
 	}
 	
 	@Path("/l/")
@@ -55,24 +64,32 @@ public class PageServlet{
 	
 	@Path("/e/{slug}")
 	@GET
-	@Produces(MediaType.APPLICATION_JSON)
 	@RolesAllowed({"ADMIN", "API"})
-	public Page edit( @DefaultValue("") @QueryParam("slug") String slug ) {
+	public Boolean  edit( @DefaultValue("") @PathParam("slug") String slug ) {
 		Page page =  pageService.loadPage(slug);
-		return page;
+		try {
+			request.setAttribute("page", page);
+			request.getRequestDispatcher("/page_form.jsp").forward(request, response);
+			
+		} catch (ServletException | IOException e) {
+			log.severe(e.getMessage());
+			throw new CustomException(Status.NOT_FOUND, "Something went wrong.");
+		}
+		
+		return true;
 	}
 	
 	@Path("/save")
-	@GET
+	@POST
 	@Consumes("application/x-www-form-urlencoded")
 	@Produces(MediaType.APPLICATION_JSON)
 	@RolesAllowed({"ADMIN", "API"})
-	public Page save (	
+	public void save (	
 			@DefaultValue("") @FormParam("slug") String  slug,
 			@DefaultValue("") @FormParam("name") String  name,
 			@DefaultValue("") @FormParam("description") String  description,
 			@DefaultValue("1000000") @FormParam("priority") Integer  priority,
-			@DefaultValue("false") @FormParam("is_menu") Boolean  is_menu  ) {
+			@DefaultValue("false") @FormParam("is_menu") Boolean  is_menu  ) throws IOException {
 		
 		log.info("Start save ");
 		
@@ -94,12 +111,12 @@ public class PageServlet{
 		newPage.setSlug(slug);
 		newPage.setPriority(priority);
 		newPage.setIs_menu(is_menu);
+		pageService.save(newPage);
 		
-		Page page = pageService.save(newPage);
+		response.sendRedirect("/page/e/"+slug);
 		
 		log.info("End save ");
-		
-		return page;
+	
 	}
 
 }

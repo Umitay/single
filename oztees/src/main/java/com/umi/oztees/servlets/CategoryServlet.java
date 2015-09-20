@@ -1,9 +1,11 @@
 package com.umi.oztees.servlets;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
@@ -12,6 +14,7 @@ import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
@@ -40,25 +43,33 @@ public class CategoryServlet {
 	
 	@Path("/v/{slug}")
 	@GET
-	public List<Product> view( @DefaultValue("") @QueryParam("slug") String slug ) {
-		
-		ProductService ps = new ProductService();
-		List<Product>  products = null;
-		Category category =  null;
+	public void view( @DefaultValue("") @PathParam("slug") String slug ) {
 		
 		if(slug.length() <=0 ){
 			throw new CustomException(Status.BAD_REQUEST, "Field 'slug' is missing.");
 		}
 		
-		category =  categoryService.loadCategory(slug); 
+		ProductService ps = new ProductService();
+		CategoryService categoryService = new CategoryService(); 
 		
+		Category category =  categoryService.loadCategory(slug); 
 		if( category == null ){
-			throw new CustomException(Status.NOT_FOUND, "Something went terribly wrong.");
+			throw new CustomException(Status.NOT_FOUND, "Something went wrong.");
 		}
-			
-		products = ps.loadProductsByCategory(slug);
+		
+		List<Category> categories =  categoryService.loadCategories(); 
+		List<Product> products = ps.loadProductsByCategory(slug);
 	
-		return products;
+		try {
+			request.setAttribute("title", category.getName());
+			request.setAttribute("products", products);
+			request.setAttribute("categories", categories);
+			request.getRequestDispatcher("/list.jsp").forward(request, response);
+			
+		} catch (ServletException | IOException e) {
+			log.severe(e.getMessage());
+			throw new CustomException(Status.NOT_FOUND, "Something went wrong.");
+		}
 	}
 	
 	@Path("/l/")
@@ -75,9 +86,16 @@ public class CategoryServlet {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@RolesAllowed({"ADMIN", "API"})
-	public Category edit( @DefaultValue("") @QueryParam("slug") String slug ) {
+	public void edit( @DefaultValue("") @PathParam("slug") String slug ) {
 		Category category =  categoryService.loadCategory(slug); 
-		return category;
+		try {
+			request.setAttribute("category", category);
+			request.getRequestDispatcher("/category_form.jsp").forward(request, response);
+			
+		} catch (ServletException | IOException e) {
+			log.severe(e.getMessage());
+			throw new CustomException(Status.NOT_FOUND, "Something went wrong.");
+		}
 	}
 	
 	@Path("/save")
@@ -85,12 +103,12 @@ public class CategoryServlet {
 	@Consumes("application/x-www-form-urlencoded")
 	@Produces(MediaType.APPLICATION_JSON)
 	@RolesAllowed({"ADMIN", "API"})
-	public Category save (	
+	public void save (	
 			@DefaultValue("") @FormParam("slug") String  slug,
 			@DefaultValue("") @FormParam("name") String  name,
 			@DefaultValue("") @FormParam("description") String  description,
 			@DefaultValue("1000000") @FormParam("priority") Integer  priority,
-			@DefaultValue("false") @FormParam("is_menu") Boolean  is_menu  ) {
+			@DefaultValue("false") @FormParam("is_menu") Boolean  is_menu  ) throws IOException {
 		
 		log.info("Start save ");
 		
@@ -112,12 +130,9 @@ public class CategoryServlet {
 		newCategory.setName(name);
 		newCategory.setSlug(slug);
 		newCategory.setPriority(priority);
-		
-		Category category = categoryService.save(newCategory);
-		
+		categoryService.save(newCategory);
+		response.sendRedirect("/category/e/"+slug);
 		log.info("End save ");
-		
-		return category;
 	}
 
 }

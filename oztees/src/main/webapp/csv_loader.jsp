@@ -16,10 +16,27 @@
 	
     </head>
      <body>
-  
+  <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a href="/oz/" class="navbar-brand">OzTees & Accessories Store</a>
+        </div>
+        <div class="navbar-collapse collapse" id="navbar">
+          <ul class="nav navbar-nav">
+				       <li><a href="/csv"><b>Upload Csv</b></a>  </li>
+		 </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
         <div class="container">
         <h1>CSV loader</h1>
-		<form role="form" method="post" action="/csv">
+		<form role="form" method="post" action="/csv/upload">
 		  <div class="form-group">
 		    <label for="filename">File Name</label>
 		    <input type="text" class="form-control" name="filename" id="filename" placeholder="Enter ile Name">

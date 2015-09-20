@@ -205,6 +205,9 @@
                 <groupId>com.google.appengine</groupId>
                 <artifactId>appengine-maven-plugin</artifactId>
                 <version>${appengine.target.version}</version>
+                <configuration>
+      <oauth2>false</oauth2>
+    </configuration>
             </plugin>
         </plugins>
     </build>
