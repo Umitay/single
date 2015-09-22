@@ -43,7 +43,7 @@ public class CategoryServlet {
 	
 	@Path("/v/{slug}")
 	@GET
-	public void view( @DefaultValue("") @PathParam("slug") String slug ) {
+	public void view( @DefaultValue("") @PathParam("slug") String slug, @QueryParam("sort_by") String sort_by ) {
 		
 		if(slug.length() <=0 ){
 			throw new CustomException(Status.BAD_REQUEST, "Field 'slug' is missing.");
@@ -58,11 +58,13 @@ public class CategoryServlet {
 		}
 		
 		List<Category> categories =  categoryService.loadCategories(); 
-		List<Product> products = ps.loadProductsByCategory(slug);
+		List<Product> products = ps.loadProductsByCategory(slug, sort_by);
 	
 		try {
-			request.setAttribute("title", category.getName());
+			request.setAttribute("category_name", category.getName());
+			request.setAttribute("category_slug", category.getSlug());
 			request.setAttribute("products", products);
+			request.setAttribute("sort_by", sort_by);
 			request.setAttribute("categories", categories);
 			request.getRequestDispatcher("/list.jsp").forward(request, response);
 			
@@ -88,9 +90,11 @@ public class CategoryServlet {
 	@RolesAllowed({"ADMIN", "API"})
 
 	public void edit( @DefaultValue("") @PathParam("slug") String slug ) {
-
+		PageService pageService = new PageService(); 
+		List<Page> pages = pageService.loadPages(); 
 		Category category =  categoryService.loadCategory(slug); 
 		try {
+			request.setAttribute("pages", pages);
 			request.setAttribute("category", category);
 			request.getRequestDispatcher("/category_form.jsp").forward(request, response);
 			

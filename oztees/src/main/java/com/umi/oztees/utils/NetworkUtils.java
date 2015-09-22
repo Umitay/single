@@ -13,11 +13,22 @@ import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Map.Entry;
 
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.core.Response.Status;
+
 import com.umi.oztees.utils.EncodingUtil;
+
 import lombok.extern.java.Log;
 
 import org.apache.commons.io.IOUtils;
@@ -26,7 +37,31 @@ public class NetworkUtils {
 	private static final Long HASH_EXPERATION_TIME = 60000L; // 1 minute
 	public static final String SECRET_KEY = "aC=l745$key";
 	public static final String USER_AGENT = "agentIM";
+	public static Boolean sendMail(String email,String description) throws UnsupportedEncodingException{
+		Boolean flag = true;
+		 Properties props = new Properties();
+	        Session session = Session.getDefaultInstance(props, null);
 
+	        try {
+	            Message msg = new MimeMessage(session);
+	            msg.setFrom(new InternetAddress("admin@oztees.com.au", "OzTees"));
+	            msg.addRecipient(Message.RecipientType.TO,
+	            		new InternetAddress("bestoffer@optusnet.com.au","Offer I."));
+ 	            msg.addRecipient(Message.RecipientType.TO,
+	                             new InternetAddress(email, email));
+	           
+	            msg.setSubject(" Order (this email come from oztees that hosted on google)");
+	            msg.setText(description);
+	            Transport.send(msg);
+
+	        } catch (AddressException e) {
+	        	throw new CustomException(Status.INTERNAL_SERVER_ERROR, "AddressException: "+e.getMessage());
+	        } catch (MessagingException e) {
+	        	throw new CustomException(Status.INTERNAL_SERVER_ERROR, "MessagingException: "+e.getMessage());
+	        }
+		
+		return true;
+	}
 	public static String addHashQuery(String query) {
 		String result = "";
 		if (query != null) {

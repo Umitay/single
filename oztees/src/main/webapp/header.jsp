@@ -14,6 +14,6 @@
 <link rel="shortcut icon" href="/logo_footer.png" type="image/x-icon" />
 <!-- Latest compiled and minified JavaScript -->
 <script	src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-<title>${title}-OzTees</title>
+<title>OzTees & Accessories Store</title>
 </head>
 <%@include file="top_nav.jsp" %>

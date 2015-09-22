@@ -24,9 +24,12 @@ import javax.ws.rs.core.Response.Status;
 
 import lombok.extern.java.Log;
 
+import com.umi.oztees.models.Category;
 import com.umi.oztees.models.Page;
+import com.umi.oztees.services.CategoryService;
 import com.umi.oztees.services.PageService;
 import com.umi.oztees.utils.CustomException;
+import com.umi.oztees.utils.NetworkUtils;
 
 @Path("/page")
 @Log
@@ -40,12 +43,17 @@ public class PageServlet{
 	@Path("/v/{slug}")
 	@GET
 	public void view( @DefaultValue("") @PathParam("slug") String slug ) {
-
+		CategoryService categoryService = new CategoryService(); 
+		List<Category> categories =  categoryService.loadCategories(); 
 		Page page =  pageService.loadPage(slug);
 		try {
+			request.setAttribute("categories", categories);
 			request.setAttribute("page", page);
-			request.getRequestDispatcher("/page.jsp").forward(request, response);
-			
+			if(slug.equals("contact")){
+				request.getRequestDispatcher("/contact.jsp").forward(request, response);
+			}else{
+				request.getRequestDispatcher("/page.jsp").forward(request, response);
+			}
 		} catch (ServletException | IOException e) {
 			log.severe(e.getMessage());
 			throw new CustomException(Status.NOT_FOUND, "Something went wrong.");
@@ -119,5 +127,24 @@ public class PageServlet{
 		log.info("End save ");
 	
 	}
-
+	
+	@Path("/contact")
+	@POST
+	@Consumes("application/x-www-form-urlencoded")
+	@Produces(MediaType.TEXT_PLAIN)
+	public Boolean order( 
+			@FormParam("name") String name, 
+			@FormParam("phone") String phone, 
+			@FormParam("email") String email, 
+			@FormParam("description") String description
+			)
+			throws ServletException, IOException {
+		
+		
+		String body = description +  "\n\r e-mail: "+email+  "\n\r Name: "+name+ "\n\r phone: "+phone+  "\n\r Description: "+description ;
+	
+	return NetworkUtils.sendMail(email,body);
+		
+	}
+	
 }

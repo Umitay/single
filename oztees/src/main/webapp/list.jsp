@@ -3,15 +3,14 @@
 <%@include file="header.jsp" %>
         <div class="container">
         <%@include file="include.jsp" %>
-        <h1> ${title}
+        <h1> ${category_name}
 		<small class="text-muted" style="font-size: 42%; line-height: 26px; margin: 23px 0px 0px;">
 				Sort By: 
-				<a href="/category/v/${product.slug}?order_by=code">Code</a>,
-				<a href="/category/v/${product.slug}?order_by=name">Name</a>, 
-				<a href="/category/v/${product.slug}?order_by=brand">Brand</a>,
-				<a href="/category/v/${product.slug}?order_by=approved_price">Price</a>, 
-				<a href="/category/v/${product.slug}?order_by=gender">Gender</a>
-
+				<a href="/category/v/${category_slug}?sort_by=${sort_by=='code'? '-code':'code'}">Code</a>,
+				<a href="/category/v/${category_slug}?sort_by=${sort_by=='name'? '-name':'name'}">Name</a>, 
+				<a href="/category/v/${category_slug}?sort_by=${sort_by=='brand'? '-brand':'brand'}">Brand</a>,
+				<a href="/category/v/${category_slug}?sort_by=${sort_by=='approved_price'? '-approved_price':'approved_price'}">Price</a>, 
+				<a href="/category/v/${category_slug}?sort_by=${sort_by=='gender'?'-gender':'gender'}">Gender</a>
 			</small></h1>
         <div class="items">
         <c:forEach items="${products}" var="product">
@@ -19,7 +18,7 @@
         <div class="item-border">
 		<div class="row">
 		  <div class="col-sm-8">
-		  <h5>${product.name}</h5>
+		  <h5 id="${product.code}">${product.name}</h5>
 		  </div>
 		   <div class="col-sm-4">
 		  <h5><b>${product.brand}</b> 
@@ -115,7 +114,7 @@
 		      </div>
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-		        <button type="button" class="btn btn-primary" id="send" data-loading-text="Sending email ..." data-complete-text="Thank you for your order." >ORDER</button>
+		        <button type="button" class="btn btn-primary" id="send" data-complete-text="Thank you for your order." >ORDER</button>
 		      </div>
 		    </div><!-- /.modal-content -->
 		  </div><!-- /.modal-dialog -->

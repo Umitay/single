@@ -14,6 +14,9 @@
 				       <li style="display:inline-block;"><a class="capitalize"  
 				       href="/page/v/privacy-police"><b>Privacy police</b></a>
 				       </li>
+				       <li style="display:inline-block;"><a class="capitalize"  
+				       href="/page/v/contact"><b>Contact us</b></a>
+				       </li>
 		 </ul>
   </div>
 </nav>
