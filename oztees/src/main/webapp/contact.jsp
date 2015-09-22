@@ -4,7 +4,7 @@
 <div class="container">
 	<h1> ${page.name}</h1>
 	${page.description}
-	
+	${msg}
 	<form role="form" method="post" action="/page/contact" style="width: 760px;">
 		  <div class="form-group">
 		    <label>Name<em style="color:red;">*</em></label>

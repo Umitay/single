@@ -141,10 +141,17 @@ public class PageServlet{
 			throws ServletException, IOException {
 		
 		
-		String body = description +  "\n\r e-mail: "+email+  "\n\r Name: "+name+ "\n\r phone: "+phone+  "\n\r Description: "+description ;
-	
-	return NetworkUtils.sendMail(email,body);
+		String body = "Thank you for contacting us." +  "\n\r e-mail: "+email+  "\n\r Name: "+name+ "\n\r phone: "+phone+  "\n\r Description: "+description ;
+		CategoryService categoryService = new CategoryService(); 
+		List<Category> categories =  categoryService.loadCategories(); 
+		Page page =  pageService.loadPage("contact");
+		NetworkUtils.sendMail(email,body);
 		
+		request.setAttribute("categories", categories);
+		request.setAttribute("page", page);
+		request.setAttribute("msg", "Your inquiry was submitted and will be responded to as soon as possible. Thank you for contacting us.");
+		request.getRequestDispatcher("/contact.jsp").forward(request, response);
+	return true;
 	}
 	
 }
