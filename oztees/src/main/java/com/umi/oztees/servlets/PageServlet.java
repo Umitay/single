@@ -73,7 +73,7 @@ public class PageServlet{
 	@Path("/e/{slug}")
 	@GET
 	@RolesAllowed({"ADMIN", "API"})
-	public Boolean  edit( @DefaultValue("") @PathParam("slug") String slug ) {
+	public void  edit( @DefaultValue("") @PathParam("slug") String slug ) {
 
 		Page page =  pageService.loadPage(slug);
 		try {
@@ -84,14 +84,12 @@ public class PageServlet{
 			log.severe(e.getMessage());
 			throw new CustomException(Status.NOT_FOUND, "Something went wrong.");
 		}
-		
-		return true;
+
 	}
 	
 	@Path("/save")
 	@POST
 	@Consumes("application/x-www-form-urlencoded")
-	@Produces(MediaType.APPLICATION_JSON)
 	@RolesAllowed({"ADMIN", "API"})
 	public void save (	
 			@DefaultValue("") @FormParam("slug") String  slug,

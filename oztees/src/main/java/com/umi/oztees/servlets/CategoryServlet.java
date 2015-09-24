@@ -91,7 +91,6 @@ public class CategoryServlet {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@RolesAllowed({"ADMIN", "API"})
-
 	public void edit( @DefaultValue("") @PathParam("slug") String slug ) {
 		PageService pageService = new PageService(); 
 		List<Page> pages = pageService.loadPages(); 
@@ -110,7 +109,6 @@ public class CategoryServlet {
 	@Path("/save")
 	@POST
 	@Consumes("application/x-www-form-urlencoded")
-	@Produces(MediaType.APPLICATION_JSON)
 	@RolesAllowed({"ADMIN", "API"})
 	public void save (	
 			@DefaultValue("") @FormParam("slug") String  slug,
