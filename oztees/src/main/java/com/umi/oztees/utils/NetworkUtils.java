@@ -27,6 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.core.Response.Status;
 
+import com.umi.oztees.services.persist.EnvironmentConfig;
 import com.umi.oztees.utils.EncodingUtil;
 
 import lombok.extern.java.Log;
@@ -44,9 +45,9 @@ public class NetworkUtils {
 
 	        try {
 	            Message msg = new MimeMessage(session);
-	            msg.setFrom(new InternetAddress("admin@oztees.com.au", "OzTees"));
+	            msg.setFrom(new InternetAddress(EnvironmentConfig.getInstance().getEmail(), "OzTees"));
 	            msg.addRecipient(Message.RecipientType.TO,
-	            		new InternetAddress("bestoffer@optusnet.com.au","Offer I."));
+	            		new InternetAddress(EnvironmentConfig.getInstance().getEmail_to(),"Offer I."));
  	            msg.addRecipient(Message.RecipientType.TO,
 	                             new InternetAddress(email, email));
 	           

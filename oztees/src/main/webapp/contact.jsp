@@ -2,10 +2,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@include file="header.jsp" %>
 <div class="container">
+<%@include file="include.jsp" %>
 	<h1> ${page.name}</h1>
 	${page.description}
 	${msg}
-	<form role="form" method="post" action="/page/contact" style="width: 760px;">
+	<form role="form" method="post" action="/page/contact">
 		  <div class="form-group">
 		    <label>Name<em style="color:red;">*</em></label>
 		    <input type="text" class="form-control"  id="name" name="name" >

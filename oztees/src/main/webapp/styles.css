@@ -3,7 +3,9 @@ body {
 	padding-top: 12%;
 	padding-bottom: 9%;
 }
-
+form{
+	width: 50%;
+}
 .capitalize:first-letter {
 	text-transform: uppercase;
 }
@@ -19,27 +21,32 @@ body {
 	margin-bottom: 20px;
 	min-height: 28px;
 }
-@media (min-width: 768px){
-.navbar>div{
-padding: 0 65px;
-}
-}
+
 @media (max-width: 700px){
 	body {
 	font-size: 12px;
-	padding-top: 25%;
+	padding-top: 10%;
 	padding-bottom: 25%;
 	}
-#printing-embroidery-banner{
+	#printing-embroidery-banner{
 	width: 100%
 
 	}
+	form{
+	width: 100%;
 }
+}
+/* @media (min-width: 768px){
+.navbar>div{
+padding-top: 10%;
+}
+} */
+
 @media (min-width: 1400px){
 body{
 font-size: 14px;
-padding-top: 5% !important;
-	padding-bottom: 4%;
+padding-top: 8% !important;
+padding-bottom: 4%;
 }
 }
 

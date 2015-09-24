@@ -1,9 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <c:choose>
-	<c:when test="${!empty page}">
-     ${page.description}
- </c:when>
+	<c:when test="${!empty include_page}">
+     ${include_page.description}
+ 	</c:when>
 	<c:otherwise>
 		<div class="page-header">
 			<div class="row">
@@ -19,10 +19,10 @@
 				</div>
 				<div class="col-sm-6 col-md-6">
 					<a class="top_banner"
-						href="https://oztees.com.au/page/v/printing-embroidery/"> 
+						href="http://www.oztees.com/page/v/printing-and-embroidery-price"> 
 						<img id="printing-embroidery-banner"
 						data-src="holder.js/500x82"
-						src="https://storage.googleapis.com/oztees-au.appspot.com/images/banner.jpg"
+						src="https://storage.googleapis.com/www.oztees.com/images/banner.jpg"
 						alt="Printing &amp; Embroidery price list">
 					</a>
 				</div>

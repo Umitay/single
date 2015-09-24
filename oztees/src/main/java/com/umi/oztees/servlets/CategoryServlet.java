@@ -48,7 +48,7 @@ public class CategoryServlet {
 		if(slug.length() <=0 ){
 			throw new CustomException(Status.BAD_REQUEST, "Field 'slug' is missing.");
 		}
-		
+		PageService pageService = new PageService();
 		ProductService ps = new ProductService();
 		CategoryService categoryService = new CategoryService(); 
 		
@@ -59,8 +59,11 @@ public class CategoryServlet {
 		
 		List<Category> categories =  categoryService.loadCategories(); 
 		List<Product> products = ps.loadProductsByCategory(slug, sort_by);
-	
+		Page page =  pageService.loadPage(category.getIncluded_page());
+		
 		try {
+			
+			request.setAttribute("include_page", page);
 			request.setAttribute("category_name", category.getName());
 			request.setAttribute("category_slug", category.getSlug());
 			request.setAttribute("products", products);

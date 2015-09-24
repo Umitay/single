@@ -41,7 +41,7 @@ public class LoginServlet {
 			String currentPerson = NetworkUtils.readCookieValue("p1", request );
 			
 			if( currentPerson != null && currentPerson.equals("offer") ){
-				request.getRequestDispatcher("/oz.jsp").forward(request, response);
+				response.sendRedirect("/oz");
 				log.info("the user in the session");
 			}else{
 				log.info("test test");
@@ -60,19 +60,17 @@ public class LoginServlet {
 		}
 	}
 	
-	@Path("/submmit")
+	@Path("/submit")
 	@POST
-	@Consumes("application/x-www-form-urlencoded")
-	@RolesAllowed({"ADMIN", "API"})
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public void save (	
 			@DefaultValue("") @FormParam("email") String  email,
 			@DefaultValue("") @FormParam("password") String  password
-		   ) {
+		   ) throws IOException, ServletException {
 		log.info("Start save ");
 		
 		String jsp="";
-		List<String> errorMsg = new ArrayList<String>(); 
-		
+			
 		if(email.length() <=0 ){
 			throw new CustomException(Status.BAD_REQUEST, "Field 'email' is missing.");
 		}
@@ -85,23 +83,16 @@ public class LoginServlet {
 				&& password.equals(EnvironmentConfig.getInstance().getPassword() ) ){
 			
 			NetworkUtils.writeCookie(response, "p1", "offer");
-			jsp = "/oz.jsp";
+			response.sendRedirect("/oz");
 			
 		}else{
 			request.setAttribute("errors", "The passed details are empty");
-			jsp = "/login.jsp";
+		
 		}
 		
-		try {
-			request.getRequestDispatcher(jsp).forward(request, response);
-		} catch (ServletException | IOException e) {
-			try {
-				request.setAttribute("errors",  e.getMessage());
-				request.getRequestDispatcher("/login.jsp").forward(request, response);
-			} catch (ServletException | IOException e1) {
-				throw new CustomException(Status.INTERNAL_SERVER_ERROR, e1.getMessage());
-			}
-		}
+		
+		request.getRequestDispatcher("/login.jsp").forward(request, response);
+		
 		
 		log.info("End LoginServlet::post");
 	}
