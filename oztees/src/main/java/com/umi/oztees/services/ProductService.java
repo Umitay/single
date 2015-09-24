@@ -21,7 +21,7 @@ public class ProductService extends DBService{
 	}
 
 	public List<Product> loadProductsByCategory(String main_category_slug, String sort_by) {
-		if(sort_by != null && !"code".equals(sort_by) ){
+		if(sort_by != null && !"code".equals(sort_by) && !"-code".equals(sort_by) ){
 			return load(Product.class,"main_category_slug", main_category_slug,sort_by);
 		}else{
 			return load(Product.class,"main_category_slug", main_category_slug);

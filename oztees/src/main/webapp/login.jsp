@@ -26,7 +26,7 @@
 			    <div class="modal-content">
 			      <div class="modal-header">
 			        <h4 class="modal-title">Welcome to Oztees</h4>
-			         
+			         ${errors}
 			      </div>
 			      <div class="modal-body">
 			        <form role="form" id="formSignIn" method="post"  action="/login/submit"  enctype="application/x-www-form-urlencoded">

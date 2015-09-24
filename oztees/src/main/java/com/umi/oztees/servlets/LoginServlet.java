@@ -24,6 +24,7 @@ import lombok.extern.java.Log;
 
 import com.umi.oztees.services.persist.EnvironmentConfig;
 import com.umi.oztees.utils.CustomException;
+import com.umi.oztees.utils.EncodingUtil;
 import com.umi.oztees.utils.NetworkUtils;
 
 @Path("/login")
@@ -40,12 +41,10 @@ public class LoginServlet {
 		try {
 			String currentPerson = NetworkUtils.readCookieValue("p1", request );
 			
-			if( currentPerson != null && currentPerson.equals("offer") ){
+			if( currentPerson != null && EncodingUtil.MD5("offer" + EnvironmentConfig.SECRET_KEY).equals(currentPerson) ){
 				response.sendRedirect("/oz");
 				log.info("the user in the session");
 			}else{
-				log.info("test test");
-				NetworkUtils.removeCookie("p1", response );
 				request.getRequestDispatcher("/login.jsp").forward(request, response);
 			}
 			
@@ -68,8 +67,6 @@ public class LoginServlet {
 			@DefaultValue("") @FormParam("password") String  password
 		   ) throws IOException, ServletException {
 		log.info("Start save ");
-		
-		String jsp="";
 			
 		if(email.length() <=0 ){
 			throw new CustomException(Status.BAD_REQUEST, "Field 'email' is missing.");
@@ -81,17 +78,16 @@ public class LoginServlet {
 
 		if( email.equals( EnvironmentConfig.getInstance().getEmail() ) 
 				&& password.equals(EnvironmentConfig.getInstance().getPassword() ) ){
-			
+			log.info("writeCookie ");
 			NetworkUtils.writeCookie(response, "p1", "offer");
+			log.info("the user in the session");
 			response.sendRedirect("/oz");
 			
 		}else{
-			request.setAttribute("errors", "The passed details are empty");
-		
+			log.info("The passed details are wrong");
+			request.setAttribute("errors", "The passed details are wrong");
+			request.getRequestDispatcher("/login.jsp").forward(request, response);
 		}
-		
-		
-		request.getRequestDispatcher("/login.jsp").forward(request, response);
 		
 		
 		log.info("End LoginServlet::post");

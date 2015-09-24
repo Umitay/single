@@ -23,6 +23,7 @@ import javax.mail.Transport;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.core.Response.Status;
@@ -350,20 +351,30 @@ public class NetworkUtils {
 
 
 	public static void removeCookie(String string, HttpServletResponse response) {
-		// TODO Auto-generated method stub
-		
+	
 	}
 
-	public static String readCookieValue(String string,
-			HttpServletRequest request) {
-		// TODO Auto-generated method stub
-		return null;
+	public static String readCookieValue(String key, HttpServletRequest request) {
+		String value = null;
+		Cookie[] cookies = request.getCookies();
+		if(cookies != null ){
+			for(Cookie cookie:cookies){
+				if(cookie.getName().equals(key)){
+					value = cookie.getValue();
+				}
+			}
+		 
+		}
+		return value;
 	}
 
-	public static void writeCookie(HttpServletResponse response, String string,
-			String string2) {
-		// TODO Auto-generated method stub
-		
+	public static void writeCookie(HttpServletResponse response,
+			String key, String value) {
+		String tmp = EncodingUtil.MD5( value + EnvironmentConfig.SECRET_KEY);
+		Cookie myCookie = new Cookie(key, tmp);
+		  myCookie.setMaxAge(60 * 60);
+		  myCookie.setPath("/");
+		response.addCookie(myCookie );
 	}
 
 }
