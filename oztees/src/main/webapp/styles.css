@@ -30,6 +30,10 @@ padding: 0 65px;
 	padding-top: 25%;
 	padding-bottom: 25%;
 	}
+#printing-embroidery-banner{
+	width: 100%
+
+	}
 }
 @media (min-width: 1400px){
 body{

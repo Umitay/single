@@ -19,7 +19,8 @@
 				</div>
 				<div class="col-sm-6 col-md-6">
 					<a class="top_banner"
-						href="https://oztees.com.au/page/v/printing-embroidery/"> <img
+						href="https://oztees.com.au/page/v/printing-embroidery/"> 
+						<img id="printing-embroidery-banner"
 						data-src="holder.js/500x82"
 						src="https://storage.googleapis.com/oztees-au.appspot.com/images/banner.jpg"
 						alt="Printing &amp; Embroidery price list">
