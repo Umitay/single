@@ -115,7 +115,9 @@ public class CategoryServlet {
 			@DefaultValue("") @FormParam("name") String  name,
 			@DefaultValue("") @FormParam("description") String  description,
 			@DefaultValue("1000000") @FormParam("priority") Integer  priority,
-			@DefaultValue("false") @FormParam("is_menu") Boolean  is_menu  ) throws IOException {
+			@DefaultValue("false") @FormParam("is_menu") Boolean  is_menu ,
+			@DefaultValue("") @FormParam("image_url") String  image_url,
+			@DefaultValue("") @FormParam("included_page") String included_page ) throws IOException {
 		
 		log.info("Start save ");
 		
@@ -136,6 +138,8 @@ public class CategoryServlet {
 		newCategory.setDescription(description);
 		newCategory.setName(name);
 		newCategory.setSlug(slug);
+		newCategory.setImage_url(image_url);
+		newCategory.setIncluded_page(included_page);
 		newCategory.setPriority(priority);
 		categoryService.save(newCategory);
 		response.sendRedirect("/category/e/"+slug);

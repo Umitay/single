@@ -6,7 +6,7 @@
 	<h1> ${page.name}</h1>
 	${page.description}
 	${msg}
-	<form role="form" method="post" action="/page/contact">
+	<form id="contact_frm" role="form" method="post" action="/page/contact">
 		  <div class="form-group">
 		    <label>Name<em style="color:red;">*</em></label>
 		    <input type="text" class="form-control"  id="name" name="name" >
