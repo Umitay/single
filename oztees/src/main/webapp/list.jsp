@@ -40,7 +40,7 @@
 		   <!-- /Thumbnail contents -->
 			<!-- Price contents -->
 		  <div class="col-sm-2">
-			 <p><b>Price:</b><br> ${product.approved_price}<br> ${product.tier_price} ${product.tier_text}</p>
+			 <p><b>Price:</b><br>$ ${product.approved_price}<br> ${product.tier_price} ${product.tier_text}</p>
 			 <p><a style="font-weight: bold;font-size:14px;" class="more_info" href="${product.link}"  target="_blank">More Info/Photo</a></p>
 		  <p><span class="btn btn-danger" style="cursor: pointer; color: #FFFFFF; font-weight: bold;" onclick="order('${product.code}')">ORDER</span>
 				  </p>
