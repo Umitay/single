@@ -45,22 +45,43 @@ public class ProductService extends DBService{
 		for (int rowIndex= 1; rowIndex < content.size(); rowIndex++) {
 			line = content.get(rowIndex);
 			Product product = new Product();
+			log.info("in row loop");
+			
 			for(int colIndex = 0; colIndex < line.length; colIndex++){
-				
+				log.info("in coll loop");
 				if(line[colIndex] != null && header[colIndex] !=null){
-					
-					switch (header[colIndex]) {
+					log.info("in if of the coll loop ");
+					switch (header[colIndex].trim()) {
 						case "name": product.setName(line[colIndex]); break;
 						case "brand": product.setBrand(line[colIndex]); break;
 						case "category": product.setCategory_name(line[colIndex]); break;
-						case "code": product.setCode(line[colIndex]); break;
+						case "code": product.setCode(line[colIndex].trim()); break;
 						case "description": product.setDescription(line[colIndex]); break;
 						case "more_text": product.setMore_text(line[colIndex]); break;
 						case "supplier": product.setSupplier_price(line[colIndex]); break;
 						case "multiple": product.setMultiple_price(line[colIndex]); break;
-						case "price": product.setApproved_price(line[colIndex]); break;
+						case "price": 
+							
+							String price = line[colIndex];
+							log.info("price: "+price);
+							
+							if(price.length() > 0){
+								price = price.replace("$", "");
+								log.info("price: "+price);
+								price = price.replace(",", ".");
+								log.info("price: "+price);
+								product.setApproved_price(Float.valueOf(price)); 
+							}
+						break;
 						case "tier_price": product.setTier_price(line[colIndex]); break;
-						case "tier_text": product.setTier_text(line[colIndex]); break;
+						case "tier_text": 
+							String text = line[colIndex];
+							if(text.length() >0){
+								text = text.replaceAll("(\\r\\n|\\n)",  "<br>");
+								text = text.replaceAll("<br><br>", "<br>");
+								product.setTier_text(text); 
+							}
+							break;
 						case "colour": product.setColour(line[colIndex]); break;
 						case "size": 
 							if(line[colIndex].isEmpty()) { 

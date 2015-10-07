@@ -6,7 +6,8 @@
 	<h1> ${page.name}</h1>
 	${page.description}
 	${msg}
-	<form id="contact_frm" role="form" method="post" action="/page/contact">
+
+	<form id="contact_frm" role="form" method="post" action="/page/contact" style="width: 50%;">
 		  <div class="form-group">
 		    <label>Name<em style="color:red;">*</em></label>
 		    <input type="text" class="form-control"  id="name" name="name" >
@@ -25,7 +26,6 @@
 		 </div>
 		<button type="submit" class="btn btn-default">Submit</button>
 	</form>
-	
 	
 </div>	
 <%@include file="bottom.jsp" %>

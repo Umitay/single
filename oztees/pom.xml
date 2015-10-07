@@ -6,11 +6,10 @@
   <packaging>war</packaging>
   
    <properties>
-        <appengine.app.version>8</appengine.app.version>
+        <appengine.app.version>9</appengine.app.version>
         <appengine.target.version>1.9.25</appengine.target.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <appengine.app.id>oztees-au</appengine.app.id>
-       <!--  <appengine.app.id>somoto-pronto-dev</appengine.app.id> -->
     </properties>
   <dependencies>
   		<dependency>

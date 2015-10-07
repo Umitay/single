@@ -58,7 +58,7 @@ public class Product {
 	@Getter
 	@Setter
 	@Index
-	public String approved_price = null;
+	public Float approved_price = null;
 	
 	@Getter
 	@Setter

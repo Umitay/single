@@ -51,7 +51,7 @@ public class CategoryServlet {
 		PageService pageService = new PageService();
 		ProductService ps = new ProductService();
 		CategoryService categoryService = new CategoryService(); 
-		
+		Page page = null;
 		Category category =  categoryService.loadCategory(slug); 
 		if( category == null ){
 			throw new CustomException(Status.NOT_FOUND, "Something went wrong.");
@@ -59,7 +59,10 @@ public class CategoryServlet {
 		
 		List<Category> categories =  categoryService.loadCategories(); 
 		List<Product> products = ps.loadProductsByCategory(slug, sort_by);
-		Page page =  pageService.loadPage(category.getIncluded_page());
+		
+		if(category.getIncluded_page()!= null){
+			page = pageService.loadPage(category.getIncluded_page());
+		}
 		
 		try {
 			
