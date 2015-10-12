@@ -38,6 +38,7 @@ public class ProductService extends DBService{
 		
 		String main_category_slug = filename.substring(0,filename.indexOf("."));
 		main_category_slug = main_category_slug.trim().toLowerCase();
+		main_category_slug = main_category_slug.replaceAll(" ", "-");
 		
 		String main_category_name = Character.toUpperCase(main_category_slug.charAt(0)) + main_category_slug.substring(1);
 		main_category_name = main_category_name.replaceAll("-", " ");
