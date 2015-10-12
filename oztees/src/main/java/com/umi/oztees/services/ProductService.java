@@ -118,7 +118,10 @@ public class ProductService extends DBService{
 		
 		if(!productList.isEmpty()){
 		  
-		  Category category = new Category();
+		  Category category = categoryService.loadCategory(main_category_slug);
+		  if(category == null ){
+			category = new Category();
+		  }
 		  category.setImage_url(productList.get(0).getPicture());
 		  category.setName(main_category_name);
 		  category.setSlug(main_category_slug);
