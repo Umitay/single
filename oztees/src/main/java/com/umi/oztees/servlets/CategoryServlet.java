@@ -60,7 +60,7 @@ public class CategoryServlet {
 		List<Category> categories =  categoryService.loadCategories(); 
 		List<Product> products = ps.loadProductsByCategory(slug, sort_by);
 		
-		if(category.getIncluded_page()!= null){
+		if(category.getIncluded_page()!= null &&  !category.getIncluded_page().isEmpty() ){
 			page = pageService.loadPage(category.getIncluded_page());
 		}
 		
